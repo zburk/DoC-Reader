@@ -12,16 +12,31 @@ struct PostListSingleView: View {
     public var excerpt: String
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading) {
+                Text("Gift Card Deals")
+                    .font(.headline)
+                HStack {
+                    Text("Charles")
+                        
+                    Spacer()
+                    Text("3h")
+                }
+            }
+
             Text(title)
-                .font(.title)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                .font(.title2)
+                .fontWeight(.semibold)
+
             Text(excerpt)
+            
+            HStack {
+                Image(systemName: "bubble.left.fill")
+                Text("12 comments")
+                    .font(.caption)
+            }
         }
         .padding()
-        .background(Color.blue)
-        .foregroundColor(Color.white)
-        .cornerRadius(10)
     }
 }
 

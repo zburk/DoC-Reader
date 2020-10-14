@@ -15,10 +15,16 @@ struct ContentView: View {
             if (posts.count == 0) {
                 Text("No posts found")
             } else {
-                List(posts) { post in
-                    PostListSingleView(title: post.title.rendered, excerpt: post.excerpt.rendered)
-                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+                ScrollView {
+                    ForEach(posts) { post in
+                        PostListSingleView(title: post.title.rendered, excerpt: post.excerpt.rendered)
+                            .background(Color(.white))
+                            .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                        
+                        Divider().padding(.vertical, 1.0).background(Color(red: 0.34, green: 0.54, blue: 0.06, opacity: 1.00))
+                    }
                 }
+                .background(Color(.systemGray6))
             }
         }
     }
