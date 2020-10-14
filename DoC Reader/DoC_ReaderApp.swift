@@ -20,6 +20,7 @@ struct DoC_ReaderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(posts: $posts)
+                .onAppear(perform: loadPosts)
         }
     }
 }
