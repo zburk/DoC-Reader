@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct DoC_ReaderApp: App {
+    @State private var posts = [Post]()
+
+    func loadPosts() -> Void {
+        APIClient().request(url: .allPosts) { loadedPosts in
+            posts = loadedPosts
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(posts: $posts)
         }
     }
 }

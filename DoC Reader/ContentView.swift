@@ -8,13 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var posts = [Post]()
-
-    func loadPosts() -> Void {
-        APIClient().request(url: .allPosts) { loadedPosts in
-            posts = loadedPosts
-        }
-    }
+    @Binding var posts: [Post]
 
     var body: some View {
         Group {
@@ -29,12 +23,13 @@ struct ContentView: View {
                 }
             }
         }
-        .onAppear(perform: loadPosts)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    static let posts = Post.samplePosts
+
     static var previews: some View {
-        ContentView()
+        ContentView(posts: .constant(posts))
     }
 }
