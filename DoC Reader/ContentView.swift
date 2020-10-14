@@ -16,10 +16,8 @@ struct ContentView: View {
                 Text("No posts found")
             } else {
                 List(posts) { post in
-                    VStack {
-                        Text(post.title.rendered)
-                        Text(post.excerpt.rendered)
-                    }
+                    PostListSingleView(title: post.title.rendered, excerpt: post.excerpt.rendered)
+                        .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                 }
             }
         }
