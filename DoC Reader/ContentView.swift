@@ -34,6 +34,12 @@ struct ContentView_Previews: PreviewProvider {
     static let posts = Post.samplePosts
 
     static var previews: some View {
-        ContentView(posts: .constant(posts))
+        Group {
+            ContentView(posts: .constant(posts))
+                .environment(\.colorScheme, .light)
+
+            ContentView(posts: .constant(posts))
+                .environment(\.colorScheme, .dark)
+        }
     }
 }
