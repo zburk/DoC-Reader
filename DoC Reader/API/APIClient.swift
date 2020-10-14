@@ -8,12 +8,26 @@
 import Foundation
 
 class APIClient {
-    public func request(url: String, completionHandler: @escaping ([Post]) -> Void) -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            completionHandler([
-                Post(id: 1, date: Date(), title: PostTitle(rendered: "Test Title"), content: PostContent(rendered: "sdlfkjsdflksd flskdf jsdklf jsdkf s")),
-                Post(id: 2, date: Date(), title: PostTitle(rendered: "Test Title2"), content: PostContent(rendered: "aqwerrenglk shfghfgh"))
-            ])
-        }
+    let session = URLSession.shared
+
+    enum requests: String {
+        case allPosts = "https://www.doctorofcredit.com/wp-json/wp/v2/posts"
+    }
+
+    public func request(url: requests, completionHandler: @escaping ([Post]) -> Void) -> Void {
+        let requestURL = URL(string: url.rawValue)!
+
+        let task = session.dataTask(with: requestURL, completionHandler: { data, response, error in
+            let decoder = JSONDecoder()
+
+            if (data != nil) {
+                let allPosts = try! decoder.decode([Post].self, from: data!)
+                print(allPosts)
+                
+                completionHandler(allPosts)
+            }
+        })
+
+        task.resume()
     }
 }

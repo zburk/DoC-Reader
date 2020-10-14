@@ -9,9 +9,10 @@ import Foundation
 
 struct Post: Identifiable, Codable {
     public var id: Int
-    public var date: Date
+    public var date: String
     public var title: PostTitle
     public var content: PostContent
+    public var excerpt: PostExcerpt
 }
 
 struct PostTitle: Codable {
@@ -19,5 +20,9 @@ struct PostTitle: Codable {
 }
 
 struct PostContent: Codable {
+    public var rendered: String
+}
+
+struct PostExcerpt: Codable {
     public var rendered: String
 }

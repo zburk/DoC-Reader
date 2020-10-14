@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var posts = [Post]()
 
     func loadPosts() -> Void {
-        APIClient().request(url: "ABC") { loadedPosts in
+        APIClient().request(url: .allPosts) { loadedPosts in
             posts = loadedPosts
         }
     }
@@ -22,7 +22,10 @@ struct ContentView: View {
                 Text("No posts found")
             } else {
                 List(posts) { post in
-                    Text(post.title.rendered)
+                    VStack {
+                        Text(post.title.rendered)
+                        Text(post.excerpt.rendered)
+                    }
                 }
             }
         }
