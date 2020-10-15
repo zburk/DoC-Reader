@@ -18,7 +18,7 @@ struct PostSingleView: View {
             WebViewFromHTML(html: post.content.rendered, redirect: { url in
                 let urlComponents = url.components(separatedBy: "/")
                 let slug = urlComponents[urlComponents.count - 2]
-                APIClient().loadPostFromSlug(slug: slug) { loadedPost in
+                Post.fetchPostFromSlug(slug: slug) { loadedPost in
                     self.post = loadedPost
                 }
             })

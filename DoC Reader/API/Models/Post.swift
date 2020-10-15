@@ -13,6 +13,30 @@ struct Post: Identifiable, Codable {
     public var title: PostTitle
     public var content: PostContent
     public var excerpt: PostExcerpt
+    
+    static public func fetchAllPosts(completionHandler: @escaping ([Post]) -> Void) -> Void {
+        return APIClient().request(url: .allPosts) { (allPosts: [Post]) in
+            completionHandler(allPosts)
+        }
+    }
+
+    static public func fetchPostFromSlug(slug: String, completionHandler: @escaping (Post) -> Void) -> Void {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = APIClient.scheme
+        urlComponents.host = APIClient.host
+        urlComponents.path = APIClient.requests.allPosts.rawValue
+        urlComponents.queryItems = [
+            URLQueryItem(name: "slug", value: slug)
+        ]
+
+        guard let url = urlComponents.url else {
+            return
+        }
+
+        return APIClient().request(url: url) { (allPosts: [Post]) in
+            completionHandler(allPosts[0])
+        }
+    }
 }
 
 struct PostTitle: Codable {

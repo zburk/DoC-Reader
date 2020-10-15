@@ -9,48 +9,33 @@ import Foundation
 
 class APIClient {
     let session = URLSession.shared
-    
+
+    static let scheme = "https"
+    static let host = "doctorofcredit.com"
+    static let baseUrl = "\(APIClient.scheme)://www.\(APIClient.host)"
+
     enum requests: String {
-        case allPosts = "https://www.doctorofcredit.com/wp-json/wp/v2/posts"
-        case slug = "https://www.doctorofcredit.com/wp-json/wp/v2/posts?slug="
+        case allPosts = "/wp-json/wp/v2/posts"
     }
-    
-    public func request(url: requests, completionHandler: @escaping ([Post]) -> Void) -> Void {
-        let requestURL = URL(string: url.rawValue)!
-        
-        let task = session.dataTask(with: requestURL, completionHandler: { data, response, error in
-            let decoder = JSONDecoder()
-            
-            if (data != nil) {
-                let allPosts = try! decoder.decode([Post].self, from: data!)
-                
-                completionHandler(allPosts)
-            }
-        })
-        
-        task.resume()
+
+    public func request<T: Codable>(url: requests, completionHandler: @escaping (T) -> Void) -> Void {
+        let requestURL = URL(string: APIClient.baseUrl + url.rawValue)!
+
+        urlSessionRequest(url: requestURL, completionHandler: completionHandler)
     }
-    
-    public func loadPostFromSlug(slug: String, completionHandler: @escaping (Post) -> Void) -> Void {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "doctorofcredit.com"
-        urlComponents.path = "/wp-json/wp/v2/posts"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "slug", value: slug)
-        ]
 
-        guard let url = urlComponents.url else {
-            return
-        }
+    public func request<T: Codable>(url: URL, completionHandler: @escaping (T) -> Void) -> Void {
+        urlSessionRequest(url: url, completionHandler: completionHandler)
+    }
 
+    private func urlSessionRequest<T: Codable>(url: URL, completionHandler: @escaping (T) -> Void) -> Void {
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             let decoder = JSONDecoder()
 
             if (data != nil) {
-                let allPosts = try! decoder.decode([Post].self, from: data!)
-                
-                completionHandler(allPosts[0])
+                let decodedData = try! decoder.decode(T.self, from: data!)
+
+                completionHandler(decodedData)
             }
         })
         
