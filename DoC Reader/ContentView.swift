@@ -18,12 +18,15 @@ struct ContentView: View {
                 NavigationView {
                     ScrollView {
                         ForEach(posts) { post in
-                            PostListSingleView(
-                                title: post.title.rendered,
-                                excerpt: post.excerpt.rendered
-                            )
-                            .background(Color("grayLightest"))
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+                            NavigationLink(destination: PostSingleView(post: post)) {
+                                PostListSingleView(
+                                    title: post.title.rendered,
+                                    excerpt: post.excerpt.rendered
+                                )
+                                .background(Color("grayLightest"))
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .navigationBarHidden(true)
