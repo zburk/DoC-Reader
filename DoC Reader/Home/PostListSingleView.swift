@@ -10,6 +10,7 @@ import SwiftUI
 struct PostListSingleView: View {
     public var title: String
     public var excerpt: String
+    public var width: CGFloat
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -28,8 +29,8 @@ struct PostListSingleView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
 
-            Text(excerpt)
-            
+            AttributedText(html: excerpt, width: width)
+
             HStack {
                 Image(systemName: "bubble.left.fill")
                 Text("12 comments")
@@ -44,7 +45,10 @@ struct PostListSingleView_Previews: PreviewProvider {
     static let post = Post.samplePosts[0]
 
     static var previews: some View {
-        PostListSingleView(title: post.title.rendered, excerpt: post.excerpt.rendered)
+        PostListSingleView(
+            title: post.title.rendered,
+            excerpt: post.excerpt.rendered,
+            width: 300)
             .previewLayout(.sizeThatFits)
     }
 }
