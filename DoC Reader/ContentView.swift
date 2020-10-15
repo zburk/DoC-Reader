@@ -11,14 +11,11 @@ struct ContentView: View {
     @Binding var posts: [Post]
     
     var body: some View {
-        ZStack {
-            Color(.systemGray6)
-                .ignoresSafeArea()
-
-            Group {
-                if (posts.count == 0) {
-                    Text("No posts found")
-                } else {
+        Group {
+            if (posts.count == 0) {
+                Text("No posts found")
+            } else {
+                NavigationView {
                     ScrollView {
                         ForEach(posts) { post in
                             PostListSingleView(
@@ -29,9 +26,10 @@ struct ContentView: View {
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
                         }
                     }
+                    .navigationBarHidden(true)
                 }
             }
-        }
+        }.background(Color(.systemGray6))
     }
 }
 

@@ -10,14 +10,7 @@ import SwiftUI
 struct PostListSingleView: View {
     public var title: String
     public var excerpt: String
-
-    func convertHtmlToString(_ html: String) -> String {
-        let data = Data(html.utf8)
-        if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
-            return attributedString.string
-        }
-        return ""
-    }
+    @State public var excerptParsed: String = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -41,7 +34,7 @@ struct PostListSingleView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
 
-                Text(convertHtmlToString(excerpt))
+                Text(excerptParsed)
 
                 HStack {
                     Image(systemName: "bubble.left.fill")
@@ -50,6 +43,15 @@ struct PostListSingleView: View {
                 }
             }
             .padding()
+            .onAppear {
+                let data = Data(excerpt.utf8)
+                if let attributedString = try? NSAttributedString(
+                    data: data,
+                    options: [.documentType: NSAttributedString.DocumentType.html],
+                    documentAttributes: nil) {
+                    excerptParsed = attributedString.string
+                }
+            }
         }
     }
 }
