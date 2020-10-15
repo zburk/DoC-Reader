@@ -13,7 +13,11 @@ struct ContentView: View {
     var body: some View {
         Group {
             if (posts.count == 0) {
-                Text("No posts found")
+                VStack {
+                    Text("Loading Posts")
+                        .font(.title)
+                    ProgressView()
+                }
             } else {
                 NavigationView {
                     ScrollView {
@@ -31,8 +35,10 @@ struct ContentView: View {
                     }
                     .navigationBarHidden(true)
                 }
+                .background(Color(.systemGray6))
+                .animation(.default)
             }
-        }.background(Color(.systemGray6))
+        }
     }
 }
 
@@ -41,6 +47,9 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            ContentView(posts: .constant([]))
+                .environment(\.colorScheme, .light)
+
             ContentView(posts: .constant(posts))
                 .environment(\.colorScheme, .light)
             
