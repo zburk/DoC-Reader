@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B6370F2A253879CA00D96FFB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6370F29253879CA00D96FFB /* Color.swift */; };
 		B673390225373A80003DA05F /* DoC_ReaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673390125373A80003DA05F /* DoC_ReaderApp.swift */; };
 		B673390425373A80003DA05F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B673390325373A80003DA05F /* ContentView.swift */; };
 		B673390625373A83003DA05F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B673390525373A83003DA05F /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B6370F29253879CA00D96FFB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B67338FE25373A80003DA05F /* DoC Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DoC Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B673390125373A80003DA05F /* DoC_ReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoC_ReaderApp.swift; sourceTree = "<group>"; };
 		B673390325373A80003DA05F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B6370F28253879BD00D96FFB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B6370F29253879CA00D96FFB /* Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B67338F525373A80003DA05F = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +72,7 @@
 		B673390025373A80003DA05F /* DoC Reader */ = {
 			isa = PBXGroup;
 			children = (
+				B6370F28253879BD00D96FFB /* Extensions */,
 				B6EDA59E25386C2000C7F5D0 /* Components */,
 				B6F2F4412537505600AF3DF6 /* Home */,
 				B6F2F4402537504800AF3DF6 /* Post */,
@@ -196,6 +207,7 @@
 			files = (
 				B673390425373A80003DA05F /* ContentView.swift in Sources */,
 				B673390225373A80003DA05F /* DoC_ReaderApp.swift in Sources */,
+				B6370F2A253879CA00D96FFB /* Color.swift in Sources */,
 				B673391325373ACC003DA05F /* APIClient.swift in Sources */,
 				B6EDA5A025386C3100C7F5D0 /* AttributedText.swift in Sources */,
 				B673391825373AFC003DA05F /* Post.swift in Sources */,

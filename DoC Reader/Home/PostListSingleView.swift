@@ -10,34 +10,47 @@ import SwiftUI
 struct PostListSingleView: View {
     public var title: String
     public var excerpt: String
-    public var width: CGFloat
+
+    func convertHtmlToString(_ html: String) -> String {
+        let data = Data(html.utf8)
+        if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            return attributedString.string
+        }
+        return ""
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            VStack(alignment: .leading) {
-                Text("Gift Card Deals")
-                    .font(.headline)
+        VStack(alignment: .leading) {
+            Rectangle()
+                .foregroundColor(Color("docGreen"))
+                .frame(height: 5)
+
+            VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Gift Card Deals")
+                        .font(.headline)
+                    HStack {
+                        Text("Charles")
+                            
+                        Spacer()
+                        Text("3h")
+                    }
+                }
+
+                Text(title)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+
+                Text(convertHtmlToString(excerpt))
+
                 HStack {
-                    Text("Charles")
-                        
-                    Spacer()
-                    Text("3h")
+                    Image(systemName: "bubble.left.fill")
+                    Text("12 comments")
+                        .font(.caption)
                 }
             }
-
-            Text(title)
-                .font(.title2)
-                .fontWeight(.semibold)
-
-            AttributedText(html: excerpt, width: width)
-
-            HStack {
-                Image(systemName: "bubble.left.fill")
-                Text("12 comments")
-                    .font(.caption)
-            }
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -47,8 +60,8 @@ struct PostListSingleView_Previews: PreviewProvider {
     static var previews: some View {
         PostListSingleView(
             title: post.title.rendered,
-            excerpt: post.excerpt.rendered,
-            width: 300)
+            excerpt: post.excerpt.rendered
+        )
             .previewLayout(.sizeThatFits)
     }
 }

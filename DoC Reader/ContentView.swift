@@ -11,7 +11,10 @@ struct ContentView: View {
     @Binding var posts: [Post]
     
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
+            Color(.systemGray6)
+                .ignoresSafeArea()
+
             Group {
                 if (posts.count == 0) {
                     Text("No posts found")
@@ -20,16 +23,12 @@ struct ContentView: View {
                         ForEach(posts) { post in
                             PostListSingleView(
                                 title: post.title.rendered,
-                                excerpt: post.excerpt.rendered,
-                                width: geometry.size.width
+                                excerpt: post.excerpt.rendered
                             )
-                                .background(Color(.white))
-                                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                            
-                            Divider().padding(.vertical, 1.0).background(Color(red: 0.34, green: 0.54, blue: 0.06, opacity: 1.00))
+                            .background(Color("grayLightest"))
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
                         }
                     }
-                    .background(Color(.systemGray6))
                 }
             }
         }

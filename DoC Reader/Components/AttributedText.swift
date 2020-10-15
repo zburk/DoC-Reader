@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AttributedText: UIViewRepresentable {
     var html: String
-    var width: CGFloat
 
     func makeUIView(context: Context) -> UILabel {
         let label = UILabel()
@@ -23,7 +22,7 @@ struct AttributedText: UIViewRepresentable {
         if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
             label.attributedText = attributedString
             label.font = UIFont.systemFont(ofSize: 20.0)
-            label.preferredMaxLayoutWidth = width
+            label.preferredMaxLayoutWidth = 300
         }
     }
 }
