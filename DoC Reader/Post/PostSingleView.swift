@@ -16,7 +16,11 @@ struct PostSingleView: View {
                 .font(.title)
 
             WebViewFromHTML(html: post.content.rendered, redirect: { url in
-                self.post = Post.samplePosts[0]
+                let urlComponents = url.components(separatedBy: "/")
+                let slug = urlComponents[urlComponents.count - 2]
+                APIClient().loadPostFromSlug(slug: slug) { loadedPost in
+                    self.post = loadedPost
+                }
             })
         }
         .padding()
