@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct PostSingleView: View {
-    public var post: Post
+    @State var post: Post
 
     var body: some View {
         VStack(alignment: .leading) {
             Text(post.title.rendered)
                 .font(.title)
 
-            WebViewFromHTML(html: post.content.rendered)
+            WebViewFromHTML(html: post.content.rendered, redirect: { url in
+                self.post = Post.samplePosts[0]
+            })
         }
         .padding()
         .navigationBarTitleDisplayMode(.inline)
