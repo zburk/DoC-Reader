@@ -54,7 +54,7 @@ struct WebViewFromHTML: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             if let newUrl = navigationAction.request.url?.absoluteURL.absoluteString {
-                if (newUrl == "about:blank") {
+                if (newUrl == "about:blank" || !newUrl.contains("doctorofcredit.com")) {
                     return decisionHandler(.allow)
                 }
                 self.parent.redirect(newUrl)
